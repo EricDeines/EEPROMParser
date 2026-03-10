@@ -38,13 +38,47 @@ public class Variant
         {Communication.EI, "EI"},
         {Communication.PN, "PN"}
     };
-    private MotorSizes motor;
-    private FirmWare firmware;
-    private Communication comm;
+    public MotorSizes Motor {get; set;}
+    public FirmWare Firmware {get; set;}
+    public Communication Comm {get; set;}
 
-    public Variant()
+    public Variant(MotorSizes motor, FirmWare firmware, Communication comm)
     {
-        
+        this.Motor = motor;
+        this.Firmware = firmware;
+        this.Comm = comm;
+    }
+
+    public bool ValidateVariant()
+    {
+        bool returnValue;
+        switch (Firmware)
+        {
+            case FirmWare.dMove:
+                if (Comm == Communication.IO || Comm == Communication.CO)
+                {
+                    returnValue = true;
+                }
+                else
+                {
+                    returnValue = false;
+                }
+                break;
+            case FirmWare.dPro:
+                if (Comm == Communication.IO)
+                {
+                    returnValue = false;
+                }
+                else
+                {
+                    returnValue = true;
+                }
+                break;
+            default:
+                returnValue = false;
+                break;
+        }
+        return returnValue;
     }
 
 }

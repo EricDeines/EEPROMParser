@@ -1,0 +1,20 @@
+<ListVariants>
+    <EEPROMVariant>
+        <MotorSize>"45"</MotorSize>
+        <FirmWare>"dMove"</FirmWare>
+        <Communication>"IO"</Communication>
+        <ListRegionGroups>
+            <RegionGroup id="1" />
+            <RegionGroup>"2"</RegionGroup>
+            <RegionGroup>"3"</RegionGroup>
+            <RegionGroup>"4"</RegionGroup>
+            <RegionGroup>"5"</RegionGroup>
+            <RegionGroup>"6"</RegionGroup>
+            <RegionGroup>"8"</RegionGroup>
+            <RegionGroup>"10"</RegionGroup>
+            <RegionGroup>"12"</RegionGroup>
+            <RegionGroup>"13"</RegionGroup>
+            <RegionGroup>"16"</RegionGroup>
+        </ListRegionGroups>
+    </EEPROMVariant>
+</ListVariants>
