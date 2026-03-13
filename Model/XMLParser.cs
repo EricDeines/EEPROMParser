@@ -28,7 +28,10 @@ public class XMLParser
         {
             if (reader.NodeType == XmlNodeType.Element && reader.Name == "RegionGroup")
             {
-                RegionGroup group = (RegionGroup)await reader.ReadContentAsAsync(typeof(RegionGroup), null);
+                var name = reader.GetAttribute("name");
+                var size = Convert.ToInt32(reader.GetAttribute("size"));
+                var id = Convert.ToInt32(reader.GetAttribute("id"));
+                RegionGroup group = new(name, size, id);
                 list.Add(group);
             }
         }
