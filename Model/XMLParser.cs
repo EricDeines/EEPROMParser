@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace EEPROMParser.Model;
@@ -6,13 +5,6 @@ namespace EEPROMParser.Model;
 public class XMLParser
 {
     private static string testUri = "C:\\Entwicklung\\Python-Aufgaben\\dotnet-aufgaben\\EEPROMParser\\Model\\ListRegionGroups.xml";
-    public static void test()
-    {
-        using var reader = XmlReader.Create(testUri, new XmlReaderSettings {
-            IgnoreComments = true,
-            IgnoreWhitespace = true
-        });
-    }
 
     public static async Task<List<RegionGroup>> createListRegionGroups()
     {
@@ -38,22 +30,4 @@ public class XMLParser
         return list;
     }
 
-    // public static async Task<List<EEPROMVariant>> createListEEPROMVariants()
-    // {
-    //     using var reader = XmlReader.Create(testUri, new XmlReaderSettings
-    //     {
-    //         IgnoreComments = true,
-    //         IgnoreWhitespace = true,
-    //         Async = true
-    //     });
-    //     List<EEPROMVariant> list = [];
-
-    //     while (await reader.ReadAsync())
-    //     {
-    //         switch (reader.NodeType)
-    //         {
-                
-    //         }
-    //     }
-    // }
 }
