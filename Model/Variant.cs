@@ -2,10 +2,11 @@ namespace EEPROMParser.Model;
 
 public enum MotorSizes
 {
-    Size45 = 45,
-    Size66 = 66,
-    Size75 = 75,
-    Size95 = 95
+    Size45,
+    Size66,
+    Size75,
+    Size95,
+    SizeBGE
 }
 
 public enum FirmWare
@@ -55,7 +56,7 @@ public class Variant
         switch (Firmware)
         {
             case FirmWare.dMove:
-                if (Comm == Communication.IO || Comm == Communication.CO)
+                if ((Comm == Communication.IO || Comm == Communication.CO) && Motor != MotorSizes.SizeBGE)
                 {
                     returnValue = true;
                 }
