@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace EEPROMParser;
+namespace EEPROMParser.UI;
 
 /// <summary>
 /// Interaction logic for App.xaml

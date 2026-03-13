@@ -53,9 +53,4 @@ public class XMLParser
     //         }
     //     }
     // }
-
-    public static async Task Main()
-    {
-        Console.WriteLine(await createListRegionGroups());
-    }
 }
