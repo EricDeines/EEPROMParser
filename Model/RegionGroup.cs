@@ -1,6 +1,6 @@
 namespace EEPROMParser.Model;
 
-public class RegionGroup
+public class RegionGroup : IEquatable<RegionGroup>
 {
     public string Name {get; private set;}
 
@@ -15,4 +15,46 @@ public class RegionGroup
         this.Id = id;
     }
 
+    public bool Equals(RegionGroup? regionGroup)
+    {
+        if (regionGroup is null)
+        {
+            return false;
+        }
+        return string.Equals(Name, regionGroup.Name, StringComparison.OrdinalIgnoreCase) && regionGroup.Size == this.Size && regionGroup.Id == this.Id;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        if (obj is not RegionGroup other)
+        {
+            return false;
+        }
+        else
+        {
+            return Equals(other);
+        }
+
+    }
+
+    public static bool operator ==(RegionGroup left, RegionGroup right) =>
+        left.Equals(right);
+
+    public static bool operator !=(RegionGroup left, RegionGroup right) =>
+        !left.Equals(right);
+
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(
+            Name.ToLowerInvariant(),
+            Size,
+            Id
+        );
+    }
 }

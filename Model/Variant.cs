@@ -1,85 +1,73 @@
 namespace EEPROMParser.Model;
 
-public enum MotorSizes
-{
-    Size45,
-    Size66,
-    Size75,
-    Size95,
-    SizeBGE
-}
 
-public enum FirmWare
+public class Variant : IEquatable<Variant>
 {
-    dMove,
-    dPro
-}
+    
+    public string Motor {get; private set;}
+    public string Firmware {get; private set;}
+    public string Comm {get; private set;}
 
-public enum Communication
-{
-    IO,
-    CO,
-    EC,
-    EI,
-    PN
-}
-public class Variant
-{
-    public static readonly Dictionary<FirmWare, string> descFirmware = new()
-    {
-        {FirmWare.dMove, "dMove"},
-        {FirmWare.dPro, "dPro"}
-    };
+    public List<RegionGroup> RegionGroups {get; private set;} = new();
 
-    public static readonly Dictionary<Communication, string> descCommunication = new()
-    {
-        {Communication.IO, "IO"},
-        {Communication.CO, "CO"},
-        {Communication.EC, "EC"},
-        {Communication.EI, "EI"},
-        {Communication.PN, "PN"}
-    };
-    public MotorSizes Motor {get; set;}
-    public FirmWare Firmware {get; set;}
-    public Communication Comm {get; set;}
-
-    public Variant(MotorSizes motor, FirmWare firmware, Communication comm)
+    public Variant(string motor, string firmware, string comm)
     {
         this.Motor = motor;
         this.Firmware = firmware;
         this.Comm = comm;
     }
 
-    public bool ValidateVariant()
+    public override bool Equals(object? obj)
     {
-        bool returnValue;
-        switch (Firmware)
+        if (ReferenceEquals(this, obj))
         {
-            case FirmWare.dMove:
-                if ((Comm == Communication.IO || Comm == Communication.CO) && Motor != MotorSizes.SizeBGE)
-                {
-                    returnValue = true;
-                }
-                else
-                {
-                    returnValue = false;
-                }
-                break;
-            case FirmWare.dPro:
-                if (Comm == Communication.IO)
-                {
-                    returnValue = false;
-                }
-                else
-                {
-                    returnValue = true;
-                }
-                break;
-            default:
-                returnValue = false;
-                break;
+            return true;
         }
-        return returnValue;
+
+        if (obj is not Variant other)
+        {
+            return false;
+        }
+        else
+        {
+            return Equals(other);
+        }
+    }
+
+    public bool Equals(Variant? variant)
+    {
+        if (variant is null)
+        {
+            return false;
+        }
+        return (
+            string.Equals(Motor, variant.Motor, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(Firmware, variant.Firmware, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(Comm, variant.Comm, StringComparison.OrdinalIgnoreCase) &&
+            RegionGroups.SequenceEqual(variant.RegionGroups)
+        );
+    }
+
+    public static bool operator ==(Variant left, Variant right) =>
+        left.Equals(right);
+    
+    public static bool operator !=(Variant left, Variant right) =>
+        left.Equals(right);
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+
+        hash.Add(Motor.ToLowerInvariant());
+        hash.Add(Firmware.ToLowerInvariant());
+        hash.Add(Comm.ToLowerInvariant());
+
+        foreach (var group in RegionGroups)
+        {
+            hash.Add(group);
+        }
+
+        return hash.ToHashCode();
     }
 
 }
