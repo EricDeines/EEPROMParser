@@ -1,23 +1,22 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Xml;
 using EEPROMParser.Model;
+using Microsoft.VisualBasic;
 
 public class Program
 {
-    public static void Main()
+    public static async Task Main()
     {
-        // var list = await XMLParser.createListRegionGroups();
-        // foreach (RegionGroup group in list)
-        // {
-        //     Console.WriteLine(group.Id);
-        // }
+        var ListRegionGroups = await XMLParser.CreateListRegionGroups();
+        var list = await XMLParser.CreateListVariants(ListRegionGroups);
 
-        // var variant = new Variant("45", "dPro", "CO");
-        // variant.RegionGroups.AddRange(list);
-        RegionGroup group = new("MOTOR", 50, 1);
-        RegionGroup group2 = new("motor", 50, 1);
-
-        Console.WriteLine(group.Equals(group2));
-
+        foreach(var variant in list)
+        {
+            foreach(var group in variant.RegionGroups)
+            {
+                Console.WriteLine(group.Name);
+            }
+        }
     }
 }

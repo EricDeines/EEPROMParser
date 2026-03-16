@@ -57,4 +57,24 @@ public class RegionGroup : IEquatable<RegionGroup>
             Id
         );
     }
+
+    public static RegionGroup? GetRegionGroupById(List<RegionGroup> list, int id)
+    {
+        RegionGroup returnValue = null;
+        foreach(var group in list)
+        {
+            if (group.Id == id)
+            {
+                returnValue = group;
+            }
+        }
+        if (returnValue is null)
+        {
+            return null;
+        }
+        else
+        {
+            return returnValue;
+        }
+    }
 }

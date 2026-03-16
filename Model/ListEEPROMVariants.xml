@@ -1,8 +1,7 @@
 <ListVariants>
-    <EEPROMVariant>
-        <MotorSize>45</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>IO</Communication>
+    <EEPROMVariant motor="BG45"
+                   firmware="dMove"
+                   communication="IO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -17,10 +16,9 @@
             <RegionGroup id="16" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>66</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>IO</Communication>
+    <EEPROMVariant motor="BG66"
+                   firmware="dMove"
+                   communication="IO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -35,10 +33,9 @@
             <RegionGroup id="16" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>75</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>IO</Communication>
+    <EEPROMVariant motor="BG75"
+                   firmware="dMove"
+                   communication="IO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -53,10 +50,9 @@
             <RegionGroup id="16" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>95</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>IO</Communication>
+    <EEPROMVariant motor="BG95"
+                   firmware="dMove"
+                   communication="IO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -71,33 +67,9 @@
             <RegionGroup id="16" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>45</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>CO</Communication>
-        <ListRegionGroups>
-            <RegionGroup id="1" />
-            <RegionGroup id="2" />
-            <RegionGroup id="3" />
-            <RegionGroup id="4" />
-            <RegionGroup id="5" />
-            <RegionGroup id="6" />
-            <RegionGroup id="8" />
-            <RegionGroup id="10" />
-            <RegionGroup id="12" />
-            <RegionGroup id="13" />
-            <RegionGroup id="14" />
-            <RegionGroup id="15" />
-            <RegionGroup id="16" />
-            <RegionGroup id="17" />
-            <RegionGroup id="18" />
-            <RegionGroup id="19" />
-        </ListRegionGroups>
-    </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>66</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG45"
+                   firmware="dMove"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -117,10 +89,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>75</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG66"
+                   firmware="dMove"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -140,10 +111,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>95</MotorSize>
-        <FirmWare>dMove</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG75"
+                   firmware="dMove"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -163,10 +133,31 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>45</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG95"
+                   firmware="dMove"
+                   communication="CO">
+        <ListRegionGroups>
+            <RegionGroup id="1" />
+            <RegionGroup id="2" />
+            <RegionGroup id="3" />
+            <RegionGroup id="4" />
+            <RegionGroup id="5" />
+            <RegionGroup id="6" />
+            <RegionGroup id="8" />
+            <RegionGroup id="10" />
+            <RegionGroup id="12" />
+            <RegionGroup id="13" />
+            <RegionGroup id="14" />
+            <RegionGroup id="15" />
+            <RegionGroup id="16" />
+            <RegionGroup id="17" />
+            <RegionGroup id="18" />
+            <RegionGroup id="19" />
+        </ListRegionGroups>
+    </EEPROMVariant>
+    <EEPROMVariant motor="BG45"
+                   firmware="dPro"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -186,10 +177,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>66</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG66"
+                   firmware="dPro"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -209,10 +199,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>75</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG75"
+                   firmware="dPro"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -232,10 +221,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>95</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BG95"
+                   firmware="dPro"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -256,10 +244,9 @@
             <RegionGroup id="20" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>BGE</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>CO</Communication>
+    <EEPROMVariant motor="BGE"
+                   firmware="dPro"
+                   communication="CO">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -280,10 +267,9 @@
             <RegionGroup id="20" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>45</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>IE</Communication>
+    <EEPROMVariant motor="BG45"
+                   firmware="dPro"
+                   communication="IE">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -302,10 +288,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>65</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>IE</Communication>
+    <EEPROMVariant motor="BG65"
+                   firmware="dPro"
+                   communication="IE">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -324,10 +309,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>75</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>IE</Communication>
+    <EEPROMVariant motor="BG75"
+                   firmware="dPro"
+                   communication="IE">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -346,10 +330,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>95</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>IE</Communication>
+    <EEPROMVariant motor="BG95"
+                   firmware="dPro"
+                   communication="IE">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />
@@ -368,10 +351,9 @@
             <RegionGroup id="19" />
         </ListRegionGroups>
     </EEPROMVariant>
-    <EEPROMVariant>
-        <MotorSize>BGE</MotorSize>
-        <FirmWare>dPro</FirmWare>
-        <Communication>IE</Communication>
+    <EEPROMVariant motor="BGE"
+                   firmware="dPro"
+                   communication="IE">
         <ListRegionGroups>
             <RegionGroup id="1" />
             <RegionGroup id="2" />

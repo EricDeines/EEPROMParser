@@ -52,7 +52,7 @@ public class Variant : IEquatable<Variant>
         left.Equals(right);
     
     public static bool operator !=(Variant left, Variant right) =>
-        left.Equals(right);
+        !left.Equals(right);
 
     public override int GetHashCode()
     {
