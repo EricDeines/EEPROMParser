@@ -5,27 +5,97 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EEPROMParser"
         mc:Ignorable="d"
-        Title="Names" Height="180" Width="260">
-    <Grid Margin="10">
+        Title="Names" Height="400" Width="711" WindowStartupLocation="CenterScreen">
+  <Grid ShowGridLines="false">
 
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Menu Grid.Row="0" Grid.ColumnSpan="3">
+      <MenuItem Header="Edit">
+        <MenuItem Header="Create" />
+        <MenuItem Header="Create2" />
+        <MenuItem Header="Create3" />
+      </MenuItem>
+    </Menu>
+
+    <GroupBox Grid.Row="2" Grid.ColumnSpan="3">
+      <GroupBox.Header>
+        <Label Content="Hello World"/>
+      </GroupBox.Header>
+      <Grid ShowGridLines="true">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+          <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Names" />
-        <ListBox Grid.Row="1" x:Name="lstNames" />
+        <DockPanel Grid.Column="0">
+          <Rectangle DockPanel.Dock="Left" Width="10"/>
+          <Rectangle DockPanel.Dock="Right" Width="10"/>
+          <Rectangle DockPanel.Dock="Top" Height="10"/>
+          <Rectangle DockPanel.Dock="Bottom" Height="10" />
+          <StackPanel>
+            <Label Content="ComboBox1" />
+            <ComboBox Name="ComboBox1"
+                      Text="My Cities"
+                      Margin="5,5,5,5"/>
+          </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="txtName" />
-            <Button Margin="0,5,0,0"
-                    Content="Add Name"
-                    Click="ButtonAddName_Click" />
-        </StackPanel>
-    </Grid>
+        <DockPanel  Grid.Column="1">
+          <Rectangle DockPanel.Dock="Left" Width="10"/>
+          <Rectangle DockPanel.Dock="Right" Width="10"/>
+          <Rectangle DockPanel.Dock="Top" Height="10"/>
+          <Rectangle DockPanel.Dock="Bottom" Height="10" />
+          <StackPanel>
+            <Label Content="ComboBox2" />
+            <ComboBox Name="ComboBox2"
+                      Text="My Cities"
+                      Margin="5,5,5,5"/>
+          </StackPanel>
+        </DockPanel>
+        
+        <DockPanel Grid.Column="2">
+          <Rectangle DockPanel.Dock="Left" Width="10"/>
+          <Rectangle DockPanel.Dock="Right" Width="10"/>
+          <Rectangle DockPanel.Dock="Top" Height="10"/>
+          <Rectangle DockPanel.Dock="Bottom" Height="10" />
+          <StackPanel>
+            <Label Content="ComboBox3" />
+            <ComboBox Name="ComboBox3"
+                      Text="My Cities"
+                      Margin="5,5,5,5"/>
+          </StackPanel>
+        </DockPanel>
+
+        <DockPanel Grid.Column="3">
+          <Rectangle DockPanel.Dock="Left" Width="10"/>
+          <Rectangle DockPanel.Dock="Right" Width="10"/>
+          <Rectangle DockPanel.Dock="Top" Height="10"/>
+          <Rectangle DockPanel.Dock="Bottom" Height="10" />
+          <StackPanel>
+            <Label Content="ComboBox4" />
+            <ComboBox Name="ComboBox4"
+                      Text="My Cities"
+                      Margin="5,5,5,5"/>
+          </StackPanel>
+        </DockPanel>
+      </Grid>
+    </GroupBox>
+  </Grid>
 </Window>
