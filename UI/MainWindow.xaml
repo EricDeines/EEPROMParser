@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EEPROMParser"
         mc:Ignorable="d"
-        Title="Names" Height="400" Width="711" WindowStartupLocation="CenterScreen">
+        Title="Names" Height="400" Width="711" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
   <Grid ShowGridLines="false">
 
     <Grid.ColumnDefinitions>
@@ -15,9 +15,11 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*" />
+      <RowDefinition Height="2*" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -28,36 +30,45 @@
       </MenuItem>
     </Menu>
 
-    <GroupBox Grid.Row="2" Grid.ColumnSpan="3">
+    <GroupBox Grid.Row="2" Grid.Column="0" Margin="10,10,5,10">
       <GroupBox.Header>
-        <Label Content="Hello World"/>
+        <Label Content="Speicherbereich" />
       </GroupBox.Header>
-      <Grid ShowGridLines="true">
+
+      <DockPanel>
+        <Rectangle DockPanel.Dock="Left" Width="10"/>
+        <Rectangle DockPanel.Dock="Right" Width="10"/>
+        <Rectangle DockPanel.Dock="Top" Height="10"/>
+        <Rectangle DockPanel.Dock="Bottom" Height="10" />
+        <StackPanel>
+          <Label Content="ComboBox1" />
+          <ComboBox Name="ComboBox1"
+                    Text="My Cities"
+                    Margin="5,5,5,5"/>
+        </StackPanel>
+      </DockPanel>
+
+    </GroupBox>
+
+    <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,10,10,10">
+      <GroupBox.Header>
+        <Label Content="Variante"/>
+      </GroupBox.Header>
+      <Grid ShowGridLines="false">
         <Grid.RowDefinitions>
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Column="0">
-          <Rectangle DockPanel.Dock="Left" Width="10"/>
-          <Rectangle DockPanel.Dock="Right" Width="10"/>
-          <Rectangle DockPanel.Dock="Top" Height="10"/>
-          <Rectangle DockPanel.Dock="Bottom" Height="10" />
-          <StackPanel>
-            <Label Content="ComboBox1" />
-            <ComboBox Name="ComboBox1"
-                      Text="My Cities"
-                      Margin="5,5,5,5"/>
-          </StackPanel>
-        </DockPanel>
 
-        <DockPanel  Grid.Column="1">
+        <DockPanel  Grid.Column="0">
           <Rectangle DockPanel.Dock="Left" Width="10"/>
           <Rectangle DockPanel.Dock="Right" Width="10"/>
           <Rectangle DockPanel.Dock="Top" Height="10"/>
@@ -69,6 +80,8 @@
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>
+
+        <Rectangle Grid.Column="1" VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray"/>
         
         <DockPanel Grid.Column="2">
           <Rectangle DockPanel.Dock="Left" Width="10"/>
@@ -83,7 +96,9 @@
           </StackPanel>
         </DockPanel>
 
-        <DockPanel Grid.Column="3">
+        <Rectangle Grid.Column="3" VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray"/>
+
+        <DockPanel Grid.Column="4">
           <Rectangle DockPanel.Dock="Left" Width="10"/>
           <Rectangle DockPanel.Dock="Right" Width="10"/>
           <Rectangle DockPanel.Dock="Top" Height="10"/>
@@ -97,5 +112,23 @@
         </DockPanel>
       </Grid>
     </GroupBox>
+
+    <DockPanel Grid.Row="3" Grid.Column="0">
+      <Rectangle DockPanel.Dock="Left" Width="50"/>
+      <Rectangle DockPanel.Dock="Right" Width="50"/>
+      <Rectangle DockPanel.Dock="Top" Height="10"/>
+      <Rectangle DockPanel.Dock="Bottom" Height="10" />
+      <Button HorizontalAlignment="Stretch"
+              VerticalAlignment="Center"
+              MinWidth="100"
+              Content="Click Me" />
+    </DockPanel>
+
+
+    <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Content="" />
+
+
   </Grid>
 </Window>
