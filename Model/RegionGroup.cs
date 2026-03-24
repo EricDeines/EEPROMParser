@@ -39,7 +39,6 @@ public class RegionGroup : IEquatable<RegionGroup>
         {
             return Equals(other);
         }
-
     }
 
     public static bool operator ==(RegionGroup left, RegionGroup right) =>
@@ -56,6 +55,11 @@ public class RegionGroup : IEquatable<RegionGroup>
             Size,
             Id
         );
+    }
+
+    public override string ToString()
+    {
+        return Name;
     }
 
     public static RegionGroup? GetRegionGroupById(List<RegionGroup> list, int id)

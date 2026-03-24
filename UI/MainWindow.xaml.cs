@@ -17,9 +17,18 @@ namespace EEPROMParser.UI;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private MainViewModel viewModel;
     public MainWindow()
     {
         InitializeComponent();
+        viewModel = new MainViewModel();
+        this.DataContext = viewModel;
+        this.Loaded += LoadWindow;
+    }
+
+    private async void LoadWindow(object sender, RoutedEventArgs e)
+    {
+        await viewModel.LoadRegionGroupsAsync();
     }
     
 }

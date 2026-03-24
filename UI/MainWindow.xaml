@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EEPROMParser"
         mc:Ignorable="d"
-        Title="Names" Height="400" Width="711" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Names" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+  <Window.Resources>
+
+  </Window.Resources>
+
   <Grid ShowGridLines="false">
 
     <Grid.ColumnDefinitions>
@@ -44,6 +48,8 @@
           <Label Content="ComboBox1" />
           <ComboBox Name="ComboBox1"
                     Text="My Cities"
+                    ItemsSource="{Binding RegionGroups}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                     Margin="5,5,5,5"/>
         </StackPanel>
       </DockPanel>
@@ -77,6 +83,8 @@
             <Label Content="ComboBox2" />
             <ComboBox Name="ComboBox2"
                       Text="My Cities"
+                      ItemsSource="{Binding Drives}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>
@@ -92,6 +100,8 @@
             <Label Content="ComboBox3" />
             <ComboBox Name="ComboBox3"
                       Text="My Cities"
+                      ItemsSource="{Binding Firmwares}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>
@@ -107,6 +117,8 @@
             <Label Content="ComboBox4" />
             <ComboBox Name="ComboBox4"
                       Text="My Cities"
+                      ItemsSource="{Binding Comms}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>

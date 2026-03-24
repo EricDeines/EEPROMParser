@@ -1,23 +1,57 @@
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Xml;
 using EEPROMParser.Model;
 using Microsoft.VisualBasic;
 
 namespace EEPROMParser.Controller;
 
 
-public class RegionGroupsViewModel : ObservableCollection<RegionGroup>
+public class MainViewModel
 {
-    private RegionGroupsViewModel(List<RegionGroup> list) : base(list)
+    public ObservableCollection<string> RegionGroups {get;} = new();
+
+    public ObservableCollection<string> Drives {get;} = new();
+
+    public ObservableCollection<string> Firmwares {get;} = new();
+
+    public ObservableCollection<string> Comms {get;} = new();
+
+    public MainViewModel()
     {
         
     }
 
-    public static async Task<RegionGroupsViewModel> CreateRegionGroupsViewModel()
+
+    public async Task LoadRegionGroupsAsync()
     {
         List<RegionGroup> list = await XMLParser.CreateListRegionGroups();
-        var model = new RegionGroupsViewModel(list);
-        return model;
+        foreach (var group in list)
+        {
+            if (!RegionGroups.Contains(group.Name))
+            {
+                RegionGroups.Add(group.Name);
+            }
+        }
+        List<Variant> variants = await XMLParser.CreateListVariants(list);
+
+        foreach (var variant in variants)
+        {
+            if (!Drives.Contains(variant.Motor))
+            {
+                Drives.Add(variant.Motor);
+            }
+
+            if (!Firmwares.Contains(variant.Firmware))
+            {
+                Firmwares.Add(variant.Firmware);
+            }
+
+            if (!Comms.Contains(variant.Comm))
+            {
+                Comms.Add(variant.Comm);
+            }
+        }
     }
-    
 }
