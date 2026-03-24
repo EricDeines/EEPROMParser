@@ -15,7 +15,7 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
-      <RowDefinition Height="2*" />
+      <RowDefinition Height="3*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto" />
@@ -119,7 +119,18 @@
       <Rectangle DockPanel.Dock="Top" Height="10"/>
       <Rectangle DockPanel.Dock="Bottom" Height="10" />
       <Button HorizontalAlignment="Stretch"
-              VerticalAlignment="Center"
+              VerticalAlignment="Stretch"
+              MinWidth="100"
+              Content="Click Me" />
+    </DockPanel>
+
+    <DockPanel Grid.Row="3" Grid.Column="2">
+      <Rectangle DockPanel.Dock="Left" Width="50"/>
+      <Rectangle DockPanel.Dock="Right" Width="50"/>
+      <Rectangle DockPanel.Dock="Top" Height="10"/>
+      <Rectangle DockPanel.Dock="Bottom" Height="10" />
+      <Button HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
               MinWidth="100"
               Content="Click Me" />
     </DockPanel>
