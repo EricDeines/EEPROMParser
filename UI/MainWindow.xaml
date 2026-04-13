@@ -49,7 +49,7 @@
           <ComboBox Name="ComboBox1"
                     Text="My Cities"
                     ItemsSource="{Binding RegionGroups}"
-                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedRegionGroup, Mode=OneWayToSource}"
                     Margin="5,5,5,5"/>
         </StackPanel>
       </DockPanel>
@@ -84,7 +84,7 @@
             <ComboBox Name="ComboBox2"
                       Text="My Cities"
                       ItemsSource="{Binding Drives}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedDrive, Mode=OneWayToSource}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>
@@ -101,7 +101,7 @@
             <ComboBox Name="ComboBox3"
                       Text="My Cities"
                       ItemsSource="{Binding Firmwares}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedFirmware, Mode=OneWayToSource}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>
@@ -118,7 +118,7 @@
             <ComboBox Name="ComboBox4"
                       Text="My Cities"
                       ItemsSource="{Binding Comms}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedComms, Mode=OneWayToSource}"
                       Margin="5,5,5,5"/>
           </StackPanel>
         </DockPanel>

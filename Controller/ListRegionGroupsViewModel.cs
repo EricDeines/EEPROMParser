@@ -12,11 +12,21 @@ public class MainViewModel
 {
     public ObservableCollection<string> RegionGroups {get;} = new();
 
+    public string SelectedRegionGroup {get; set;}
+
     public ObservableCollection<string> Drives {get;} = new();
+
+    public string SelectedDrive {get; set;}
 
     public ObservableCollection<string> Firmwares {get;} = new();
 
+    public string SelectedFirmware {get; set;}
+
     public ObservableCollection<string> Comms {get;} = new();
+
+    public string SelectedComms {get; set;}
+
+    private List<Variant> variants = new();
 
     public MainViewModel()
     {
@@ -34,7 +44,7 @@ public class MainViewModel
                 RegionGroups.Add(group.Name);
             }
         }
-        List<Variant> variants = await XMLParser.CreateListVariants(list);
+        variants = await XMLParser.CreateListVariants(list);
 
         foreach (var variant in variants)
         {
@@ -53,5 +63,10 @@ public class MainViewModel
                 Comms.Add(variant.Comm);
             }
         }
+    }
+
+    public bool ValidateSelection()
+    {
+        return true;
     }
 }
