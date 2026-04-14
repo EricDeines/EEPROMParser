@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EEPROMParser"
+        xmlns:local="clr-namespace:EEPROMParser.UI"
         mc:Ignorable="d"
-        Title="Names" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Names" Height="540" Width="960" WindowStartupLocation="CenterScreen">
   <Window.Resources>
 
   </Window.Resources>
 
-  <Grid ShowGridLines="false">
+  <Grid ShowGridLines="true">
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
@@ -21,7 +21,7 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="3*" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
@@ -34,7 +34,7 @@
       </MenuItem>
     </Menu>
 
-    <GroupBox Grid.Row="2" Grid.Column="0" Margin="10,10,5,10">
+    <GroupBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Margin="10,10,5,10">
       <GroupBox.Header>
         <Label Content="Speicherbereich" />
       </GroupBox.Header>
@@ -80,7 +80,7 @@
           <Rectangle DockPanel.Dock="Top" Height="10"/>
           <Rectangle DockPanel.Dock="Bottom" Height="10" />
           <StackPanel>
-            <Label Content="ComboBox2" />
+            <Label Content="Motor" />
             <ComboBox Name="ComboBox2"
                       Text="My Cities"
                       ItemsSource="{Binding Drives}"
@@ -97,7 +97,7 @@
           <Rectangle DockPanel.Dock="Top" Height="10"/>
           <Rectangle DockPanel.Dock="Bottom" Height="10" />
           <StackPanel>
-            <Label Content="ComboBox3" />
+            <Label Content="Firmware" />
             <ComboBox Name="ComboBox3"
                       Text="My Cities"
                       ItemsSource="{Binding Firmwares}"
@@ -114,7 +114,7 @@
           <Rectangle DockPanel.Dock="Top" Height="10"/>
           <Rectangle DockPanel.Dock="Bottom" Height="10" />
           <StackPanel>
-            <Label Content="ComboBox4" />
+            <Label Content="Kommunikation" />
             <ComboBox Name="ComboBox4"
                       Text="My Cities"
                       ItemsSource="{Binding Comms}"
@@ -130,8 +130,8 @@
       <Rectangle DockPanel.Dock="Right" Width="50"/>
       <Rectangle DockPanel.Dock="Top" Height="10"/>
       <Rectangle DockPanel.Dock="Bottom" Height="10" />
-      <Button HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
+      <Button HorizontalAlignment="Center"
+              VerticalAlignment="Center"
               MinWidth="100"
               Content="Click Me" />
     </DockPanel>
@@ -141,16 +141,17 @@
       <Rectangle DockPanel.Dock="Right" Width="50"/>
       <Rectangle DockPanel.Dock="Top" Height="10"/>
       <Rectangle DockPanel.Dock="Bottom" Height="10" />
-      <Button HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
+      <Button HorizontalAlignment="Center"
+              VerticalAlignment="Center"
               MinWidth="100"
-              Content="Click Me" />
+              Content="Check"
+              Click="OnClick" />
     </DockPanel>
 
 
     <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
 
-    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Content="" />
+    <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding ValidateResult, Mode=OneWay}" />
 
 
   </Grid>

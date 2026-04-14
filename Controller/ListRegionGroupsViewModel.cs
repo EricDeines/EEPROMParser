@@ -1,15 +1,18 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using EEPROMParser.Model;
 using Microsoft.VisualBasic;
+using System.Windows;
 
 namespace EEPROMParser.Controller;
 
 
-public class MainViewModel
+public class MainViewModel : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler PropertyChanged;
     public ObservableCollection<string> RegionGroups {get;} = new();
 
     public string SelectedRegionGroup {get; set;}
@@ -26,11 +29,27 @@ public class MainViewModel
 
     public string SelectedComms {get; set;}
 
+    private string result = "";
+    public string ValidateResult
+    {
+        get {return result;}
+        set
+        {
+            result = value;
+            OnPropertyChanged();
+        }
+    }
+
     private List<Variant> variants = new();
 
     public MainViewModel()
     {
         
+    }
+
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
 
@@ -67,6 +86,19 @@ public class MainViewModel
 
     public bool ValidateSelection()
     {
-        return true;
+        foreach (var variant in variants)
+        {
+            if (variant.Motor == SelectedDrive && variant.Firmware == SelectedFirmware && variant.Comm == SelectedComms)
+            {
+                foreach (var group in variant.RegionGroups)
+                {
+                    if (group.Name == SelectedRegionGroup)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

@@ -20,15 +20,20 @@ public partial class MainWindow : Window
     private MainViewModel viewModel;
     public MainWindow()
     {
-        InitializeComponent();
         viewModel = new MainViewModel();
         this.DataContext = viewModel;
         this.Loaded += LoadWindow;
+        InitializeComponent();
     }
 
     private async void LoadWindow(object sender, RoutedEventArgs e)
     {
         await viewModel.LoadRegionGroupsAsync();
+    }
+
+    private void OnClick(object sender, RoutedEventArgs e)
+    {
+        viewModel.ValidateResult = viewModel.ValidateSelection().ToString();
     }
     
 }
