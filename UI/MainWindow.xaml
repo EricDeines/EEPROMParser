@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EEPROMParser.UI"
+        xmlns:controller="clr-namespace:EEPROMParser.Controller;assembly=Controller"
         mc:Ignorable="d"
         Title="Names" Height="540" Width="960" WindowStartupLocation="CenterScreen">
   <Window.Resources>
@@ -44,14 +45,47 @@
         <Rectangle DockPanel.Dock="Right" Width="10"/>
         <Rectangle DockPanel.Dock="Top" Height="10"/>
         <Rectangle DockPanel.Dock="Bottom" Height="10" />
-        <StackPanel>
-          <Label Content="ComboBox1" />
-          <ComboBox Name="ComboBox1"
-                    Text="My Cities"
-                    ItemsSource="{Binding RegionGroups}"
-                    SelectedItem="{Binding SelectedRegionGroup, Mode=OneWayToSource}"
-                    Margin="5,5,5,5"/>
-        </StackPanel>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+
+          <controller:MyOwnCheckbox Grid.Row="0"
+                                    Margin="0,0,0,5"
+                                    Text="Alle Bereiche lesen?" 
+                                    IsChecked="false"/>
+
+          <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding RegionGroups, Mode=OneWay}">
+              <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                  <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                    <ItemsPresenter/>
+                  </Border>
+                </ControlTemplate>
+              </ItemsControl.Template>
+
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <controller:MyOwnCheckbox Text="{Binding Path=Text, Mode=TwoWay}"
+                                            IsChecked="{Binding Path=IsChecked, Mode=TwoWay}"/>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+          </ScrollViewer>
+        </Grid>
       </DockPanel>
 
     </GroupBox>

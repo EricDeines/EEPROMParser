@@ -12,22 +12,22 @@ namespace EEPROMParser.Controller;
 
 public class MainViewModel : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler PropertyChanged;
-    public ObservableCollection<string> RegionGroups {get;} = new();
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public ObservableCollection<StringItemViewModel> RegionGroups {get;} = new();
 
-    public string SelectedRegionGroup {get; set;}
+    public string? SelectedRegionGroup {get; set;}
 
     public ObservableCollection<string> Drives {get;} = new();
 
-    public string SelectedDrive {get; set;}
+    public string? SelectedDrive {get; set;}
 
     public ObservableCollection<string> Firmwares {get;} = new();
 
-    public string SelectedFirmware {get; set;}
+    public string? SelectedFirmware {get; set;}
 
     public ObservableCollection<string> Comms {get;} = new();
 
-    public string SelectedComms {get; set;}
+    public string? SelectedComms {get; set;}
 
     private string result = "";
     public string ValidateResult
@@ -47,7 +47,7 @@ public class MainViewModel : INotifyPropertyChanged
         
     }
 
-    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
@@ -58,9 +58,14 @@ public class MainViewModel : INotifyPropertyChanged
         List<RegionGroup> list = await XMLParser.CreateListRegionGroups();
         foreach (var group in list)
         {
-            if (!RegionGroups.Contains(group.Name))
+            if (!RegionGroups.Any(item => item.Text == group.Name))
             {
-                RegionGroups.Add(group.Name);
+                var item = new StringItemViewModel
+                {
+                    Text = group.Name,
+                    IsChecked = false
+                };
+                RegionGroups.Add(item);
             }
         }
         variants = await XMLParser.CreateListVariants(list);
