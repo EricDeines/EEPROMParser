@@ -54,12 +54,11 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition/>
           </Grid.ColumnDefinitions>
-
-          <controller:MyOwnCheckbox Grid.Row="0"
-                                    Margin="0,0,0,5"
-                                    Text="Alle Bereiche lesen?" 
-                                    IsChecked="false"/>
-
+          
+          <StackPanel Grid.Row="0" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Content="Alles lesen?" Command="{Binding CheckAll}"/>
+            <Button Content="Nichts lesen?" Command="{Binding UncheckAll}" Margin="10,0,0,0"/>
+          </StackPanel>
           <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding RegionGroups, Mode=OneWay}">
               <ItemsControl.Template>
@@ -178,8 +177,7 @@
       <Button HorizontalAlignment="Center"
               VerticalAlignment="Center"
               MinWidth="100"
-              Content="Check"
-              Click="OnClick" />
+              Content="Check" />
     </DockPanel>
 
 

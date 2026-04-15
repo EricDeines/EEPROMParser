@@ -30,10 +30,4 @@ public partial class MainWindow : Window
     {
         await viewModel.LoadRegionGroupsAsync();
     }
-
-    private void OnClick(object sender, RoutedEventArgs e)
-    {
-        viewModel.ValidateResult = viewModel.ValidateSelection().ToString();
-    }
-    
 }

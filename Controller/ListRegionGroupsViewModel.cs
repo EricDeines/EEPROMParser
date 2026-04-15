@@ -6,6 +6,7 @@ using System.Xml;
 using EEPROMParser.Model;
 using Microsoft.VisualBasic;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EEPROMParser.Controller;
 
@@ -14,6 +15,10 @@ public class MainViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public ObservableCollection<StringItemViewModel> RegionGroups {get;} = new();
+
+    public ICommand CheckAll {get;}
+
+    public ICommand UncheckAll {get;}
 
     public string? SelectedRegionGroup {get; set;}
 
@@ -44,7 +49,8 @@ public class MainViewModel : INotifyPropertyChanged
 
     public MainViewModel()
     {
-        
+        CheckAll = new RelayCommand(CheckAllRegionGroups);
+        UncheckAll = new RelayCommand(UncheckAllRegionGroups);
     }
 
     protected void OnPropertyChanged([CallerMemberName] string? name = null)
@@ -105,5 +111,19 @@ public class MainViewModel : INotifyPropertyChanged
             }
         }
         return false;
+    }
+
+    private void CheckAllRegionGroups()
+    {
+        foreach (var group in RegionGroups) {
+            group.IsChecked = true;
+        }
+    }
+
+    private void UncheckAllRegionGroups()
+    {
+        foreach (var group in RegionGroups) {
+            group.IsChecked = false;
+        }
     }
 }
