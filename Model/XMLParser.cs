@@ -91,4 +91,26 @@ public class XMLParser
         return list;
     }
 
+    public static async Task WriteNewXmlFile(string newFileName, Dictionary<string, string> bytesPerGroup)
+    {
+        using var writer = XmlWriter.Create(newFileName, new XmlWriterSettings
+        {
+            Async = true,
+            Indent = true,
+            NewLineHandling = NewLineHandling.None
+        });
+
+        await writer.WriteStartDocumentAsync();
+        await writer.WriteStartElementAsync(null, "BytesPerRegionGroup", null);
+        foreach (var pair in bytesPerGroup)
+        {
+            await writer.WriteStartElementAsync(null, pair.Key, null);
+            await writer.WriteStringAsync("\r\n");
+            await writer.WriteStringAsync(pair.Value);
+            await writer.WriteWhitespaceAsync("  ");
+            await writer.WriteEndElementAsync();
+        }
+        await writer.WriteEndElementAsync();
+        await writer.WriteEndDocumentAsync();
+    }
 }

@@ -95,22 +95,47 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public bool ValidateSelection()
+    public bool ValidateSelection(Variant? selectedVariant, List<string> selectedGroups)
+    {
+        if (selectedVariant is null)
+        {
+            return false;
+        }
+        if (selectedGroups.Count == 0)
+        {
+            return false;
+        }
+        bool result = true;
+        foreach (var group in selectedGroups)
+        {
+            result &= selectedVariant.RegionGroups.Any(g => g.Name == group);
+        }
+        return result;
+    }
+
+    public List<string> GetSelectedRegionGroups()
+    {
+        List<string> result = new();
+        foreach (StringItemViewModel group in RegionGroups)
+        {
+            if (group.IsChecked)
+            {
+                result.Add(group.Text);
+            }
+        }
+        return result;
+    }
+
+    public Variant? GetSelectedVariant()
     {
         foreach (var variant in variants)
         {
             if (variant.Motor == SelectedDrive && variant.Firmware == SelectedFirmware && variant.Comm == SelectedComms)
             {
-                foreach (var group in variant.RegionGroups)
-                {
-                    if (group.Name == SelectedRegionGroup)
-                    {
-                        return true;
-                    }
-                }
+                return variant;
             }
         }
-        return false;
+        return null;
     }
 
     private void CheckAllRegionGroups()

@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EEPROMParser.Controller;
+using Microsoft.Win32;
 
 namespace EEPROMParser.UI;
 
@@ -29,5 +30,19 @@ public partial class MainWindow : Window
     private async void LoadWindow(object sender, RoutedEventArgs e)
     {
         await viewModel.LoadRegionGroupsAsync();
+    }
+
+    private void OpenFilePicker(object sender, RoutedEventArgs e)
+    {
+        OpenFileDialog dialog = new OpenFileDialog();
+        if (dialog.ShowDialog() == true)
+        {
+            viewModel.ValidateResult = dialog.FileName;
+        }
+    }
+
+    private void CheckSelection(object sender, RoutedEventArgs e)
+    {
+        viewModel.ValidateResult = viewModel.ValidateSelection(viewModel.GetSelectedVariant(), viewModel.GetSelectedRegionGroups()).ToString();
     }
 }
