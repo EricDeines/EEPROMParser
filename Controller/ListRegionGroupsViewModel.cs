@@ -15,8 +15,6 @@ namespace EEPROMParser.Controller;
 
 public class MainViewModel : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-    public ObservableCollection<StringItemViewModel> RegionGroups {get;} = new();
 
     public ICommand CheckAll {get;}
 
@@ -26,23 +24,39 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ICommand ReadBinaryFile {get;}
 
-    public string? SelectedFile {get; set;}
+    public ObservableCollection<StringItemViewModel> RegionGroups {get;} = new();
 
-    public string? SelectedRegionGroup {get; set;}
+    /// <summary>
+    /// A string which stores the selected file path from the UI.
+    /// </summary>
+    public string? SelectedFile {get; set;}
 
     public ObservableCollection<string> Drives {get;} = new();
 
+    /// <summary>
+    /// A string which stores the selected Drive from the UI.
+    /// </summary>
     public string? SelectedDrive {get; set;}
 
     public ObservableCollection<string> Firmwares {get;} = new();
 
+    /// <summary>
+    /// A string which stores the selected Firmware from the UI.
+    /// </summary>
     public string? SelectedFirmware {get; set;}
 
     public ObservableCollection<string> Comms {get;} = new();
 
+    /// <summary>
+    /// A string which stores the selected Communication from the UI.
+    /// </summary>
     public string? SelectedComms {get; set;}
 
-    private string result = "";
+    private string result = string.Empty;
+
+    /// <summary>
+    /// A string which is used to signal succesful or unsuccesful Operations to the User.
+    /// </summary>
     public string ValidateResult
     {
         get {return result;}
@@ -53,6 +67,9 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// A list of <c>Variant</c> which stores all the variants defined in the XML-Config files.
+    /// </summary>
     private List<Variant> variants = new();
 
 
@@ -64,12 +81,12 @@ public class MainViewModel : INotifyPropertyChanged
         ReadBinaryFile = new AsyncRelayCommand(ReadEEPROMFile);
     }
 
-    protected void OnPropertyChanged([CallerMemberName] string? name = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
 
 
+    /// <summary>
+    /// An asynchronous method which loads data from the XML-Config files for display in the UI.
+    /// </summary>
+    /// <returns></returns>
     public async Task LoadRegionGroupsAsync()
     {
         List<RegionGroup> list = await XMLParser.CreateListRegionGroups();
@@ -106,7 +123,13 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    private bool ValidateSelection(Variant? selectedVariant, List<string> selectedGroups)
+    /// <summary>
+    /// A static method which validates if a collection of Region groups is used in a given Variant.
+    /// </summary>
+    /// <param name="selectedVariant">The Variant to use for validation.</param>
+    /// <param name="selectedGroups"> A list of strings representing the names of each Region group.</param>
+    /// <returns> A <c>bool</c> indicating if Validation was succesful or not.</returns>
+    private static bool ValidateSelection(Variant? selectedVariant, List<string> selectedGroups)
     {
         if (selectedVariant is null)
         {
@@ -124,6 +147,10 @@ public class MainViewModel : INotifyPropertyChanged
         return result;
     }
 
+    /// <summary>
+    /// Returns all selected Region groups in the UI.
+    /// </summary>
+    /// <returns> A <c>List</c> representing the names of each Region group</returns>
     private List<string> GetSelectedRegionGroups()
     {
         List<string> result = new();
@@ -137,6 +164,10 @@ public class MainViewModel : INotifyPropertyChanged
         return result;
     }
 
+    /// <summary>
+    /// Returs the currently selected <c>Variant</c> in the UI or null if no Variant is selected.
+    /// </summary>
+    /// <returns></returns>
     private Variant? GetSelectedVariant()
     {
         foreach (var variant in variants)
@@ -149,6 +180,11 @@ public class MainViewModel : INotifyPropertyChanged
         return null;
     }
 
+    #region Command Methods
+
+    /// <summary>
+    /// Checks every Checkbox for each Region group.
+    /// </summary>
     private void CheckAllRegionGroups()
     {
         foreach (var group in RegionGroups) {
@@ -156,6 +192,9 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Unchecks every Checkbox for each Region group
+    /// </summary>
     private void UncheckAllRegionGroups()
     {
         foreach (var group in RegionGroups) {
@@ -163,6 +202,9 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Displays a <c>OpenFileDialog</c> for the user to select a file. 
+    /// </summary>
     private void SetSelectedFile()
     {
         OpenFileDialog dialog = new OpenFileDialog();
@@ -173,6 +215,10 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// An asynchronous method that reads bytes from the currently selected file, formats it and saves it into a XML-File.
+    /// </summary>
+    /// <returns></returns>
     private async Task ReadEEPROMFile()
     {
         if (string.IsNullOrWhiteSpace(SelectedFile))
@@ -200,4 +246,12 @@ public class MainViewModel : INotifyPropertyChanged
             ValidateResult = "XML-Datei erfolgreich generiert!";
         }
     }
+    #endregion
+    #region PropertyChanged
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
+    #endregion
 }

@@ -2,6 +2,9 @@ using System.Windows.Input;
 
 namespace EEPROMParser.Controller;
 
+/// <summary>
+/// A generic Implementation of <c>ICommand</c> which can execute any object of type <c>Action</c>
+/// </summary>
 public class RelayCommand : ICommand
 {
     private readonly Action _execute;

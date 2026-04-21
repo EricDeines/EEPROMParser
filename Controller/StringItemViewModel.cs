@@ -3,18 +3,15 @@ using System.Runtime.CompilerServices;
 
 namespace EEPROMParser.Controller;
 
+/// <summary>
+/// A Viewmodel to be used for the <c>CheckboxTextControl</c> class.
+/// </summary>
 public class StringItemViewModel : INotifyPropertyChanged
 {
     private string? _text;
 
     private bool _isChecked;
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string? name = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
 
     public string Text
     {
@@ -36,5 +33,14 @@ public class StringItemViewModel : INotifyPropertyChanged
         }
     }
 
+    #region PropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    #endregion
 
 }

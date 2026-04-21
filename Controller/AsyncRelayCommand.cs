@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace EEPROMParser.Controller;
 
+/// <summary>
+/// A generic Implementation of <c>ICommand</c> which can execute any object of type <c>Task</c>
+/// </summary>
 public class AsyncRelayCommand : ICommand
 {
     private readonly Func<Task> _execute;

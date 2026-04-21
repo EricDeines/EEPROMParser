@@ -18,7 +18,7 @@ namespace EEPROMParser.UI;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private MainViewModel viewModel;
+    private readonly MainViewModel viewModel;
     public MainWindow()
     {
         viewModel = new MainViewModel();
@@ -27,6 +27,12 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
+    /// <summary>
+    /// An asynchronous method which loads data from the XML-Config files into the application. This method
+    /// is used as a event handler for the <c>Loaded</c> event.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void LoadWindow(object sender, RoutedEventArgs e)
     {
         await viewModel.LoadRegionGroupsAsync();

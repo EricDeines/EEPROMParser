@@ -11,19 +11,14 @@ public class EEPROMReader
 {
 
     public static string filePath = "C:\\Entwicklung\\Python-Aufgaben\\MCP_FW_MotorControl\\EEPROM_BGxxdMoveCO.bin";
-    public static void ReadBytes()
-    {
-        using var reader = new BinaryReader(File.Open(filePath, FileMode.Open));
 
-        byte[] bytes = reader.ReadBytes(10);
-
-        for (int i = 0; i < bytes.Length; i++)
-        {
-            byte[] bytes1 = [bytes[i]];
-            Console.WriteLine(Convert.ToHexString(bytes1));
-        }
-    }
-
+    /// <summary>
+    /// This method reads the binary content specified by the groups and the variant from a binary file specified by its file path.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <param name="variant"></param>
+    /// <param name="groups"></param>
+    /// <returns>A Dictionary which matches the name of each Region group to its byte array.</returns>
     public static Dictionary<string, byte[]> ReadFile(string filePath, Variant variant, List<string> groups)
     {
         using var reader = new BinaryReader(File.Open(filePath, FileMode.Open));
@@ -40,6 +35,12 @@ public class EEPROMReader
         return BytesPerGroup;
     }
 
+    /// <summary>
+    /// This method converts the byte arrays from an incoming Dictionary to a formatted Hex string
+    /// and returns a new Dictionary. 
+    /// </summary>
+    /// <param name="bytesPerGroup"></param>
+    /// <returns></returns>
     public static Dictionary<string, string> FormatBytes(Dictionary<string, byte[]> bytesPerGroup)
     {
         Dictionary<string, string> result = new();

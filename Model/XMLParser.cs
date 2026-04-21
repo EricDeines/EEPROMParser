@@ -5,10 +5,15 @@ namespace EEPROMParser.Model;
 
 public class XMLParser
 {
+    // ToDo: 
     private static string testUri = "C:\\Entwicklung\\Python-Aufgaben\\dotnet-aufgaben\\EEPROMParser\\Model\\ListRegionGroups.xml";
 
     private static string testUri2 = "C:\\Entwicklung\\Python-Aufgaben\\dotnet-aufgaben\\EEPROMParser\\Model\\ListEEPROMVariants.xml";
 
+    /// <summary>
+    /// An asynchronous method that loads the Region groups defined in the XML-Config files and returns it.
+    /// </summary>
+    /// <returns> A Task representing the asynchronous method.</returns>
     public static async Task<List<RegionGroup>> CreateListRegionGroups()
     {
         using var reader = XmlReader.Create(testUri, new XmlReaderSettings
@@ -33,6 +38,13 @@ public class XMLParser
         return list;
     }
 
+    /// <summary>
+    /// An asynchronous method that loads the variants defined in the XML-Config files and returns it.
+    /// This method requires a List of <c>RegionGroup</c> objects as input because the XML-Config files store
+    /// for each Variant only the id of the Region groups associated with it.
+    /// </summary>
+    /// <param name="regionGroups"></param>
+    /// <returns></returns>
     public static async Task<List<Variant>> CreateListVariants(List<RegionGroup> regionGroups)
     {
         using var reader = XmlReader.Create(testUri2, new XmlReaderSettings
@@ -91,6 +103,13 @@ public class XMLParser
         return list;
     }
 
+    /// <summary>
+    /// An asynchronous method that creates a new xml file with the given file name and writes data from the input dictionary into
+    /// the xml file.
+    /// </summary>
+    /// <param name="newFileName">An absolute path to the new file.</param>
+    /// <param name="bytesPerGroup">A Dictionary which contains the data to write into the xml file.</param>
+    /// <returns></returns>
     public static async Task WriteNewXmlFile(string newFileName, Dictionary<string, string> bytesPerGroup)
     {
         using var writer = XmlWriter.Create(newFileName, new XmlWriterSettings

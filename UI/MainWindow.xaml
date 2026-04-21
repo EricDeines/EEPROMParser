@@ -77,7 +77,7 @@
 
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <controller:MyOwnCheckbox Text="{Binding Path=Text, Mode=TwoWay}"
+                  <controller:CheckboxTextControl Text="{Binding Path=Text, Mode=TwoWay}"
                                             IsChecked="{Binding Path=IsChecked, Mode=TwoWay}"/>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
