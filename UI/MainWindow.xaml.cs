@@ -31,18 +31,4 @@ public partial class MainWindow : Window
     {
         await viewModel.LoadRegionGroupsAsync();
     }
-
-    private void OpenFilePicker(object sender, RoutedEventArgs e)
-    {
-        OpenFileDialog dialog = new OpenFileDialog();
-        if (dialog.ShowDialog() == true)
-        {
-            viewModel.ValidateResult = dialog.FileName;
-        }
-    }
-
-    private void CheckSelection(object sender, RoutedEventArgs e)
-    {
-        viewModel.ValidateResult = viewModel.ValidateSelection(viewModel.GetSelectedVariant(), viewModel.GetSelectedRegionGroups()).ToString();
-    }
 }

@@ -167,7 +167,7 @@
               VerticalAlignment="Stretch"
               MinWidth="100"
               Content="Open File"
-              Click="OpenFilePicker" />
+              Command="{Binding SelectFile}" />
     </DockPanel>
 
     <DockPanel Grid.Row="2" Grid.Column="2">
@@ -179,7 +179,7 @@
               VerticalAlignment="Stretch"
               MinWidth="100"
               Content="Check Selection"
-              Click="CheckSelection" />
+              Command="{Binding ReadBinaryFile}" />
     </DockPanel>
 
 

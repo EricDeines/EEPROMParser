@@ -7,6 +7,8 @@ using EEPROMParser.Model;
 using Microsoft.VisualBasic;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
+using System.Threading.Tasks;
 
 namespace EEPROMParser.Controller;
 
@@ -19,6 +21,12 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand CheckAll {get;}
 
     public ICommand UncheckAll {get;}
+
+    public ICommand SelectFile {get;}
+
+    public ICommand ReadBinaryFile {get;}
+
+    public string? SelectedFile {get; set;}
 
     public string? SelectedRegionGroup {get; set;}
 
@@ -47,10 +55,13 @@ public class MainViewModel : INotifyPropertyChanged
 
     private List<Variant> variants = new();
 
+
     public MainViewModel()
     {
         CheckAll = new RelayCommand(CheckAllRegionGroups);
         UncheckAll = new RelayCommand(UncheckAllRegionGroups);
+        SelectFile = new RelayCommand(SetSelectedFile);
+        ReadBinaryFile = new AsyncRelayCommand(ReadEEPROMFile);
     }
 
     protected void OnPropertyChanged([CallerMemberName] string? name = null)
@@ -95,7 +106,7 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public bool ValidateSelection(Variant? selectedVariant, List<string> selectedGroups)
+    private bool ValidateSelection(Variant? selectedVariant, List<string> selectedGroups)
     {
         if (selectedVariant is null)
         {
@@ -113,7 +124,7 @@ public class MainViewModel : INotifyPropertyChanged
         return result;
     }
 
-    public List<string> GetSelectedRegionGroups()
+    private List<string> GetSelectedRegionGroups()
     {
         List<string> result = new();
         foreach (StringItemViewModel group in RegionGroups)
@@ -126,7 +137,7 @@ public class MainViewModel : INotifyPropertyChanged
         return result;
     }
 
-    public Variant? GetSelectedVariant()
+    private Variant? GetSelectedVariant()
     {
         foreach (var variant in variants)
         {
@@ -149,6 +160,44 @@ public class MainViewModel : INotifyPropertyChanged
     {
         foreach (var group in RegionGroups) {
             group.IsChecked = false;
+        }
+    }
+
+    private void SetSelectedFile()
+    {
+        OpenFileDialog dialog = new OpenFileDialog();
+        if (dialog.ShowDialog() == true)
+        {
+            SelectedFile = dialog.FileName;
+            ValidateResult = $"Datei {dialog.FileName} geladen!";
+        }
+    }
+
+    private async Task ReadEEPROMFile()
+    {
+        if (string.IsNullOrWhiteSpace(SelectedFile))
+        {
+            ValidateResult = "Keine Datei geladen!";
+            return;
+        }
+        if (!ValidateSelection(GetSelectedVariant(), GetSelectedRegionGroups()))
+        {
+            ValidateResult = "Keine valide Auswahl!";
+            return;
+        }
+
+        var BytesPerRegionGroup = EEPROMReader.ReadFile(SelectedFile, GetSelectedVariant(), GetSelectedRegionGroups());
+
+        var FormattedHexStringPerRegionGroup = EEPROMReader.FormatBytes(BytesPerRegionGroup);
+
+        SaveFileDialog dialog = new SaveFileDialog();
+        dialog.FileName = "EEPROM";
+        dialog.DefaultExt = ".xml";
+
+        if (dialog.ShowDialog() == true)
+        {
+            await XMLParser.WriteNewXmlFile(dialog.FileName, FormattedHexStringPerRegionGroup);
+            ValidateResult = "XML-Datei erfolgreich generiert!";
         }
     }
 }
