@@ -1,16 +1,10 @@
 
 
-
-
-using Microsoft.VisualBasic;
-
 namespace EEPROMParser.Model;
 
 
 public class EEPROMReader
 {
-
-    public static string filePath = "C:\\Entwicklung\\Python-Aufgaben\\MCP_FW_MotorControl\\EEPROM_BGxxdMoveCO.bin";
 
     /// <summary>
     /// This method reads the binary content specified by the groups and the variant from a binary file specified by its file path.

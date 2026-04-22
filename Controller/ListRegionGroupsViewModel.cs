@@ -2,13 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Xml;
 using EEPROMParser.Model;
-using Microsoft.VisualBasic;
-using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
-using System.Threading.Tasks;
 
 namespace EEPROMParser.Controller;
 
@@ -20,37 +16,68 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ICommand UncheckAll {get;}
 
-    public ICommand SelectFile {get;}
-
     public ICommand ReadBinaryFile {get;}
 
     public ObservableCollection<StringItemViewModel> RegionGroups {get;} = new();
 
-    /// <summary>
-    /// A string which stores the selected file path from the UI.
-    /// </summary>
-    public string? SelectedFile {get; set;}
-
     public ObservableCollection<string> Drives {get;} = new();
+
+    private string? _selectedDrive;
 
     /// <summary>
     /// A string which stores the selected Drive from the UI.
     /// </summary>
-    public string? SelectedDrive {get; set;}
+    public string? SelectedDrive
+    {
+        get => _selectedDrive;
+        set
+        {
+            if (_selectedDrive != value)
+            {
+                _selectedDrive = value;
+                SelectedVariant = GetSelectedVariant();    
+            }
+        }
+    }
 
     public ObservableCollection<string> Firmwares {get;} = new();
+
+    private string? _selectedFirmware;
 
     /// <summary>
     /// A string which stores the selected Firmware from the UI.
     /// </summary>
-    public string? SelectedFirmware {get; set;}
+    public string? SelectedFirmware
+    {
+        get => _selectedFirmware;
+        set
+        {
+            if (_selectedFirmware != value)
+            {
+                _selectedFirmware = value;
+                SelectedVariant = GetSelectedVariant();    
+            }
+        }
+    }
 
     public ObservableCollection<string> Comms {get;} = new();
 
+    private string? _selectedComms;
     /// <summary>
     /// A string which stores the selected Communication from the UI.
     /// </summary>
-    public string? SelectedComms {get; set;}
+    public string? SelectedComms
+    {
+        get => _selectedComms;
+        set
+        {
+            if (_selectedComms != value)
+            {
+                _selectedComms = value;
+                SelectedVariant = GetSelectedVariant();    
+            }
+        }
+    }
 
     private string result = string.Empty;
 
@@ -72,12 +99,40 @@ public class MainViewModel : INotifyPropertyChanged
     /// </summary>
     private List<Variant> variants = new();
 
+    private Variant? _selectedVariant;
+
+    /// <summary>
+    /// The currently selected Variant in the UI.
+    /// </summary>
+    public Variant? SelectedVariant {
+        get {return _selectedVariant;}
+        set
+        {
+            _selectedVariant = value;
+            RegionGroups.Clear();
+            if (_selectedVariant is null)
+            {
+                return;
+            }
+            else
+            {
+                foreach (var group in _selectedVariant.RegionGroups)
+                {
+                    RegionGroups.Add(new StringItemViewModel
+                    {
+                        Text = group.Name,
+                        IsChecked = false
+                    });
+                }
+            }
+        }
+    }
+
 
     public MainViewModel()
     {
         CheckAll = new RelayCommand(CheckAllRegionGroups);
         UncheckAll = new RelayCommand(UncheckAllRegionGroups);
-        SelectFile = new RelayCommand(SetSelectedFile);
         ReadBinaryFile = new AsyncRelayCommand(ReadEEPROMFile);
     }
 
@@ -90,18 +145,6 @@ public class MainViewModel : INotifyPropertyChanged
     public async Task LoadRegionGroupsAsync()
     {
         List<RegionGroup> list = await XMLParser.CreateListRegionGroups();
-        foreach (var group in list)
-        {
-            if (!RegionGroups.Any(item => item.Text == group.Name))
-            {
-                var item = new StringItemViewModel
-                {
-                    Text = group.Name,
-                    IsChecked = false
-                };
-                RegionGroups.Add(item);
-            }
-        }
         variants = await XMLParser.CreateListVariants(list);
 
         foreach (var variant in variants)
@@ -187,7 +230,8 @@ public class MainViewModel : INotifyPropertyChanged
     /// </summary>
     private void CheckAllRegionGroups()
     {
-        foreach (var group in RegionGroups) {
+        foreach (var group in RegionGroups)
+        {
             group.IsChecked = true;
         }
     }
@@ -203,47 +247,35 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Displays a <c>OpenFileDialog</c> for the user to select a file. 
-    /// </summary>
-    private void SetSelectedFile()
-    {
-        OpenFileDialog dialog = new OpenFileDialog();
-        if (dialog.ShowDialog() == true)
-        {
-            SelectedFile = dialog.FileName;
-            ValidateResult = $"Datei {dialog.FileName} geladen!";
-        }
-    }
-
-    /// <summary>
-    /// An asynchronous method that reads bytes from the currently selected file, formats it and saves it into a XML-File.
+    /// An asynchronous method that asks the user to open a file, read content from it and write it into a new xml file.
     /// </summary>
     /// <returns></returns>
     private async Task ReadEEPROMFile()
     {
-        if (string.IsNullOrWhiteSpace(SelectedFile))
-        {
-            ValidateResult = "Keine Datei geladen!";
-            return;
-        }
         if (!ValidateSelection(GetSelectedVariant(), GetSelectedRegionGroups()))
         {
             ValidateResult = "Keine valide Auswahl!";
             return;
         }
 
-        var BytesPerRegionGroup = EEPROMReader.ReadFile(SelectedFile, GetSelectedVariant(), GetSelectedRegionGroups());
-
-        var FormattedHexStringPerRegionGroup = EEPROMReader.FormatBytes(BytesPerRegionGroup);
-
-        SaveFileDialog dialog = new SaveFileDialog();
-        dialog.FileName = "EEPROM";
-        dialog.DefaultExt = ".xml";
-
-        if (dialog.ShowDialog() == true)
+        OpenFileDialog openDialog = new OpenFileDialog();
+        openDialog.Title = "Öffne Binär Datei";
+        if (openDialog.ShowDialog() == true)
         {
-            await XMLParser.WriteNewXmlFile(dialog.FileName, FormattedHexStringPerRegionGroup);
-            ValidateResult = "XML-Datei erfolgreich generiert!";
+            string fileName = openDialog.FileName;
+            var BytesPerRegionGroup = EEPROMReader.ReadFile(fileName, GetSelectedVariant(), GetSelectedRegionGroups());
+
+            var FormattedHexStringPerRegionGroup = EEPROMReader.FormatBytes(BytesPerRegionGroup);
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.FileName = "EEPROM";
+            saveDialog.DefaultExt = ".xml";
+
+            if (saveDialog.ShowDialog() == true)
+            {
+                await XMLParser.WriteNewXmlFile(saveDialog.FileName, FormattedHexStringPerRegionGroup);
+                ValidateResult = "XML-Datei erfolgreich generiert!";
+            }
         }
     }
     #endregion

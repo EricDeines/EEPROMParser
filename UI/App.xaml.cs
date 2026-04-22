@@ -1,6 +1,5 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using EEPROMParser.Model;
 
 namespace EEPROMParser.UI;
 

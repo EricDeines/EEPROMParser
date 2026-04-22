@@ -1,11 +1,10 @@
 using System.Xml;
-using Microsoft.VisualBasic;
 
 namespace EEPROMParser.Model;
 
 public class XMLParser
 {
-    // ToDo: 
+    // ToDo: Make these files loadable through UI.
     private static string testUri = "C:\\Entwicklung\\Python-Aufgaben\\dotnet-aufgaben\\EEPROMParser\\Model\\ListRegionGroups.xml";
 
     private static string testUri2 = "C:\\Entwicklung\\Python-Aufgaben\\dotnet-aufgaben\\EEPROMParser\\Model\\ListEEPROMVariants.xml";

@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:EEPROMParser.UI"
         xmlns:controller="clr-namespace:EEPROMParser.Controller;assembly=Controller"
         mc:Ignorable="d"
-        Title="Names" Height="540" Width="960" WindowStartupLocation="CenterScreen">
+        Title="Names" Height="500" Width="700" WindowStartupLocation="CenterScreen">
   <Window.Resources>
 
   </Window.Resources>
 
-  <Grid ShowGridLines="true">
+  <Grid ShowGridLines="false">
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
@@ -166,8 +166,7 @@
       <Button HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               MinWidth="100"
-              Content="Open File"
-              Command="{Binding SelectFile}" />
+              Content="Open File" />
     </DockPanel>
 
     <DockPanel Grid.Row="2" Grid.Column="2">
@@ -178,7 +177,7 @@
       <Button HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               MinWidth="100"
-              Content="Check Selection"
+              Content="Read binary data"
               Command="{Binding ReadBinaryFile}" />
     </DockPanel>
 
