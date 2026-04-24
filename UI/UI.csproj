@@ -2,6 +2,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.csproj" />
+    <Content Include="Resources\ListRegionGroups.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ListEEPROMVariants.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <PropertyGroup>
@@ -10,6 +16,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+
+    <DebugType>embedded</DebugType>
+
+    <ApplicationIcon>Resources\dunker.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>

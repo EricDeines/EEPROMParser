@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EEPROMParser.UI"
         xmlns:controller="clr-namespace:EEPROMParser.Controller;assembly=Controller"
         mc:Ignorable="d"
-        Title="Names" Height="500" Width="700" WindowStartupLocation="CenterScreen">
+        Title="EepromReader" Height="500" Width="700" WindowStartupLocation="CenterScreen">
   <Window.Resources>
 
   </Window.Resources>
@@ -157,17 +157,6 @@
         </DockPanel>
       </Grid>
     </GroupBox>
-
-    <DockPanel Grid.Row="2" Grid.Column="0">
-      <Rectangle DockPanel.Dock="Left" Width="50"/>
-      <Rectangle DockPanel.Dock="Right" Width="50"/>
-      <Rectangle DockPanel.Dock="Top" Height="25"/>
-      <Rectangle DockPanel.Dock="Bottom" Height="25" />
-      <Button HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
-              MinWidth="100"
-              Content="Open File" />
-    </DockPanel>
 
     <DockPanel Grid.Row="2" Grid.Column="2">
       <Rectangle DockPanel.Dock="Left" Width="50"/>

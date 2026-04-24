@@ -15,7 +15,7 @@ public class EEPROMReader
     /// <returns>A Dictionary which matches the name of each Region group to its byte array.</returns>
     public static Dictionary<string, byte[]> ReadFile(string filePath, Variant variant, List<string> groups)
     {
-        using var reader = new BinaryReader(File.Open(filePath, FileMode.Open));
+        using var reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read));
 
         Dictionary<string, byte[]> BytesPerGroup = new();
         foreach (var group in variant.RegionGroups)

@@ -8,7 +8,7 @@ namespace EEPROMParser.Controller;
 /// </summary>
 public class StringItemViewModel : INotifyPropertyChanged
 {
-    private string? _text;
+    private string _text = string.Empty;
 
     private bool _isChecked;
 

@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using EEPROMParser.Model;
 using System.Windows.Input;
 using Microsoft.Win32;
+using System.IO;
+using System.Windows;
 
 namespace EEPROMParser.Controller;
 
@@ -128,6 +130,10 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    public string FilePathListRegionGroup {get; private set;} = Path.Combine(AppContext.BaseDirectory, "Resources", "ListRegionGroups.xml");
+
+    public string FilePathListVariant {get; private set;} = Path.Combine(AppContext.BaseDirectory, "Resources", "ListEEPROMVariants.xml");
+
 
     public MainViewModel()
     {
@@ -144,25 +150,34 @@ public class MainViewModel : INotifyPropertyChanged
     /// <returns></returns>
     public async Task LoadRegionGroupsAsync()
     {
-        List<RegionGroup> list = await XMLParser.CreateListRegionGroups();
-        variants = await XMLParser.CreateListVariants(list);
-
-        foreach (var variant in variants)
+        try
         {
-            if (!Drives.Contains(variant.Motor))
-            {
-                Drives.Add(variant.Motor);
-            }
+            List<RegionGroup> list = await XMLParser.CreateListRegionGroups(FilePathListRegionGroup);
+            variants = await XMLParser.CreateListVariants(FilePathListVariant, list);
 
-            if (!Firmwares.Contains(variant.Firmware))
+            foreach (var variant in variants)
             {
-                Firmwares.Add(variant.Firmware);
-            }
+                if (!Drives.Contains(variant.Motor))
+                {
+                    Drives.Add(variant.Motor);
+                }
 
-            if (!Comms.Contains(variant.Comm))
-            {
-                Comms.Add(variant.Comm);
+                if (!Firmwares.Contains(variant.Firmware))
+                {
+                    Firmwares.Add(variant.Firmware);
+                }
+
+                if (!Comms.Contains(variant.Comm))
+                {
+                    Comms.Add(variant.Comm);
+                }
             }
+        } catch (FileNotFoundException)
+        {
+            MessageBox.Show("Config Dateien konnten nicht gefunden werden", "Loading error", MessageBoxButton.OK, MessageBoxImage.Error);
+        } catch (InvalidOperationException iE)
+        {
+            MessageBox.Show(iE.Message, "Loading error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
