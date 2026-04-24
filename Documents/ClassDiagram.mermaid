@@ -1,0 +1,85 @@
+classDiagram
+    class Controller.MainViewModel {
+        +ICommand CheckAll
+        +ICommand UncheckAll
+        +ICommand ReadBinaryFile
+
+        +ObservableCollection~StringItemViewModel~ RegionGroups
+        +ObservableCollection~string~ Drives
+        +string? SelectedDrive
+        +ObservableCollection~string~ Firmwares
+        +string? SelectedFirmware
+        +ObservableCollection~string~ Comms
+        +string? SelectedComms
+        +string ValidateResult
+        +Variant? SelectedVariant
+        +string FilePathListRegionGroup
+        +string FilePathListVariant
+
+        -List~Variant~ variants
+
+        +Task LoadRegionGroupsAsync()
+        -bool static ValidaeSelection(Variant? selectedVariant, List<string> selectedGroups)
+        -List~string~ GetSelectedRegionGroups()
+        -Variant? GetSelectedVariant()
+        -void CheckAllRegionGroups()
+        -void UncheckAllRegionGroups()
+        -Task ReadEEPROMFile()
+        #void OnPropertyChanged()
+        +PropertyChangedEventHandler? PropertyChanged
+
+    }
+
+    class Controller.StringItemViewModel {
+        +string Text
+        +bool IsChecked
+        -string _text
+        -bool_isChecked
+
+        #void OnPropertyChanged()
+        +PropertyChangedEventHandler? PropertyChanged
+    }
+
+    class Controller.CheckboxTextControl {
+        +static DependencyProperty TextProperty
+        +string Text
+        +static DependencyProperty IsCheckedProperty
+        +bool IsChecked
+    }
+
+    class Model.RegionGroup {
+        +string Name
+        +int Size
+        +int Id
+
+        +static RegionGroup? GetRegionGroupById(List~RegionGroup~ list, int id)
+    }
+
+    class Model.Variant {
+        +string Motor
+        +string Firmware
+        +string Comm
+        +List~RegionGroup~ RegionGroups
+    }
+    class Model.EEPROMReader {
+        +static Dictionary~string,byte[]~ ReadFile(string filePath, Variant variant, List~string~ groups)
+        +static Dictionary~string,string~ FormatBytes(Dictionary~string,byte[]~ bytesPerGroup)
+    }
+    class Model.XMLParser {
+        +static Task~List~RegionGroup~~ CreateListRegionGroups(string filePath)
+        +static Task~List~Variant~~ CreateListVariants(string filePath, List~RegionGroup~ regionGroups)
+        +static Task WriteNewXmlFile(string newFileName, Dictionary~string,string~ bytesPerGroup)
+    }
+    class UI.MainWindow {
+        -MainViewModel viewModel
+        -void LoadWindow(object sender, RoutedEventArgs e) 
+    }
+
+    Model.Variant "1" *-- "n" Model.RegionGroup
+    Controller.MainViewModel "1" *-- "n" Controller.StringItemViewModel
+    UI.MainWindow "1" *-- "1" Controller.MainViewModel
+    UI.MainWindow "1" *-- "n" Controller.CheckboxTextControl
+    Controller.MainViewModel ..> Model.EEPROMReader
+    Controller.MainViewModel ..> Model.XMLParser
+    Controller.MainViewModel "1" *-- "n" Model.Variant
+
